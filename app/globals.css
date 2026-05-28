@@ -1,35 +1,50 @@
 @import "tailwindcss";
 
+/* ── Dark mode: class strategy ── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens (light) ── */
 @theme {
-  --color-accent: #22d3ee;
-  --color-muted: #a3a3a3;
-  --color-bg-base: #0a0a0a;
+  --color-bg:           #faf6ee;
+  --color-ink:          #000000;
+  --color-paper:        rgba(255, 255, 255, 0.72);
+  --color-dot:          rgba(0, 0, 0, 0.18);
+  --color-accent-green: #b6ff4e;
+  --color-accent-pink:  #ff6bff;
+  --color-accent-cyan:  #00d2ff;
+  --color-featured-bg:  rgba(0, 0, 0, 0.88);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
+/* ── Dark token overrides ── */
+.dark {
+  --color-bg:           #0f0f0f;
+  --color-ink:          #faf6ee;
+  --color-paper:        rgba(255, 255, 255, 0.07);
+  --color-dot:          rgba(250, 246, 238, 0.18);
+  --color-featured-bg:  rgba(250, 246, 238, 0.10);
+  /* accent colors unchanged — they pop on dark too */
+}
+
+/* ── Base ── */
 html {
   scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #e5e5e5;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {
-  background-color: rgba(34, 211, 238, 0.2);
+  background-color: rgba(182, 255, 78, 0.35);
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(34, 211, 238, 0.13);
-  border-radius: 2px;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-ink); opacity: 0.3; border-radius: 2px; }
