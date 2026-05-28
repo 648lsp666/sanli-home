@@ -171,10 +171,7 @@ export default function Insights() {
           </span>
         </div>
 
-        <div
-          className="flex gap-3 overflow-x-auto pb-2"
-          style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
-        >
+        <div className="flex gap-3 overflow-x-auto pb-2">
           {scrollCards.map(article => (
             <a
               key={article.title}
