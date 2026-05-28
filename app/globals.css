@@ -82,3 +82,23 @@ body {
 ::-webkit-scrollbar       { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb { background: var(--color-ink); opacity: 0.3; border-radius: 2px; }
+
+/* ── Blog prose typography ── */
+.prose { color: var(--color-ink); max-width: 680px; }
+.prose h2 { font-size: 22px; font-weight: 900; margin: 2.2rem 0 0.75rem; padding-bottom: 4px; border-bottom: 3px solid var(--color-accent-green); }
+.prose h3 { font-size: 17px; font-weight: 900; margin: 1.75rem 0 0.5rem; }
+.prose p  { font-size: 15px; line-height: 1.9; margin: 0 0 1.2rem; opacity: 0.8; }
+.prose strong { font-weight: 900; opacity: 1 !important; }
+.prose em { font-style: italic; }
+.prose ul, .prose ol { margin: 0 0 1.2rem 1.5rem; }
+.prose ul { list-style-type: disc; }
+.prose ol { list-style-type: decimal; }
+.prose li { font-size: 15px; line-height: 1.75; margin-bottom: 0.4rem; opacity: 0.8; }
+.prose blockquote { border-left: 4px solid var(--color-accent-cyan); padding-left: 1rem; margin: 1.5rem 0; font-style: italic; }
+.prose blockquote p { opacity: 0.65; }
+.prose code { font-family: var(--font-mono); font-size: 13px; background: var(--color-paper); padding: 2px 6px; border: 1.5px solid var(--color-ink); border-radius: 0; }
+.prose pre { background: var(--color-paper); border: 2px solid var(--color-ink); box-shadow: 3px 3px 0 var(--color-ink); padding: 0; margin: 0 0 1.5rem; overflow-x: auto; }
+.prose pre code { display: block; padding: 1rem; border: none; background: none; font-size: 13px; }
+.prose hr { border: none; border-top: 2px solid var(--color-ink); opacity: 0.15; margin: 2.5rem 0; }
+.prose a { border-bottom: 2px solid var(--color-accent-green); opacity: 0.85; }
+.prose a:hover { opacity: 1; }
