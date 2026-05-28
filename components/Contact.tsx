@@ -1,56 +1,53 @@
 'use client'
 import { motion } from 'framer-motion'
 
-const LINKS = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/648lsp666',
-    external: true,
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
-        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Email',
-    href: 'mailto:alexeisiemail@gmail.com',
-    external: false,
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-      </svg>
-    ),
-  },
-]
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-}
-
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-32 text-center">
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <p className="mb-2 font-mono text-xs tracking-[0.3em] text-accent uppercase">Contact</p>
-        <h2 className="mb-4 text-5xl font-extrabold text-white">Say Hi</h2>
-        <p className="mb-10 text-muted">有想法、有合作、或者只是想聊聊，都欢迎。</p>
-        <div className="flex justify-center gap-6">
-          {LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.external ? '_blank' : undefined}
-              rel={link.external ? 'noopener noreferrer' : undefined}
-              aria-label={link.label}
-              className="text-muted transition-colors hover:text-accent"
-            >
-              {link.icon}
-            </a>
-          ))}
+    <section id="contact" className="px-8 py-[50px]" style={{ borderBottom: '3px solid var(--color-ink)' }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }} transition={{ duration: 0.5 }}
+        className="flex flex-wrap items-center justify-between gap-6"
+      >
+        {/* Display title */}
+        <h2 className="text-[52px] font-black leading-[0.95] tracking-[-2px]" style={{ color: 'var(--color-ink)' }}>
+          来
+          <span
+            className="border-[3px] px-[5px]"
+            style={{ background: 'var(--color-accent-cyan)', borderColor: 'var(--color-ink)' }}
+          >
+            聊
+          </span>
+          <br />
+          一下？
+        </h2>
+
+        {/* Links */}
+        <div className="flex flex-col gap-3">
+          <a
+            href="mailto:alexeisiemail@gmail.com"
+            className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
+            style={{ background: 'var(--color-accent-cyan)', borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
+          >
+            发邮件 →
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank" rel="noopener noreferrer"
+            className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
+            style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
+          >
+            GitHub
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank" rel="noopener noreferrer"
+            className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
+            style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
+          >
+            Twitter / X
+          </a>
         </div>
-        <p className="mt-16 text-xs text-white/20">Built with Next.js · Deployed on Vercel</p>
       </motion.div>
     </section>
   )
