@@ -180,9 +180,33 @@ All existing components get rewritten in-place. No new files needed for v1.
 
 ---
 
-## 8. Out of Scope (v1)
+## 8. Dark Mode
+
+Dark mode is **in scope for v1**. Implemented via Tailwind `dark:` variants + `next-themes` (or `class` strategy on `<html>`). System preference respected by default; no manual toggle required for v1.
+
+### Dark Tokens
+| Token | Light | Dark |
+|---|---|---|
+| Page background | `#faf6ee` | `#0f0f0f` |
+| Primary text | `#000` | `#faf6ee` |
+| Border / ink | `#000` | `#faf6ee` |
+| Card background | `rgba(255,255,255,0.72)` | `rgba(255,255,255,0.07)` |
+| Box shadow | `N N 0 #000` | `N N 0 #faf6ee` |
+| Nav background | `rgba(250,246,238,0.92)` | `rgba(15,15,15,0.92)` |
+| Featured card bg | `rgba(0,0,0,0.88)` | `rgba(250,246,238,0.10)` + cream text |
+| Footer background | `#000` | `#faf6ee` (inverted) |
+| Footer text | `#faf6ee` | `#000` |
+
+Accent colors (`#b6ff4e` / `#ff6bff` / `#00d2ff`) are **unchanged** in dark mode — they pop even more against a dark background.
+
+Dot grid dots: `rgba(250,246,238,0.18)` in dark mode.  
+Neon blobs: opacity reduced to ~0.28/0.22/0.18 in dark mode to avoid overwhelming the dark canvas.
+
+---
+
+## 9. Out of Scope (v1)
 
 - Blog routes (`/blog/[slug]`) — Insights links to external URLs for now
-- Dark mode — not planned
 - Search / filtering in Insights — Tab filter deferred to v2
 - CMS / MDX pipeline — content hardcoded in components for v1
+- Manual dark/light toggle button — system preference only in v1
