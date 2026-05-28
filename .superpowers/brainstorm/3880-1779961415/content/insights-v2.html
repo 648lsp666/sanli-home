@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights Section — Revised</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#1a1a1a; font-family:'Inter',-apple-system,sans-serif; padding:32px 20px; display:flex; flex-direction:column; align-items:center; gap:24px; }
+  .page-label { color:#888; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:700; }
+
+  /* shared page chrome */
+  .page-wrap { width:760px; background:#faf6ee; border:3px solid #000; box-shadow:8px 8px 0 #000; overflow:hidden; position:relative; }
+  .dot-bg { position:absolute; inset:0; background-image:radial-gradient(circle,#00000018 1px,transparent 1px); background-size:20px 20px; pointer-events:none; z-index:0; }
+  .section { padding:44px 28px; position:relative; z-index:1; }
+  .section-header { display:flex; align-items:baseline; gap:14px; margin-bottom:24px; }
+  .section-num { font-size:11px; font-weight:900; letter-spacing:3px; opacity:0.35; text-transform:uppercase; }
+  .section-title { font-size:26px; font-weight:900; color:#000; }
+
+  /* card shared */
+  .card-base { border:2.5px solid #000; box-shadow:4px 4px 0 #000; }
+  /* SEMI-TRANSPARENT cards so dot grid shows through */
+  .card-light { background:rgba(255,255,255,0.72); backdrop-filter:blur(2px); }
+  .card-dark  { background:rgba(0,0,0,0.88); color:#faf6ee; }
+
+  /* tags */
+  .cat-tag { font-size:9px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:2px 7px; border:1.5px solid currentColor; display:inline-block; }
+
+  /* ── OPTION A: Tab Filter Grid ── */
+  .tabs { display:flex; gap:0; margin-bottom:20px; border:2.5px solid #000; width:fit-content; box-shadow:4px 4px 0 #000; }
+  .tab { padding:8px 18px; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1px; border-right:2px solid #000; cursor:pointer; background:transparent; color:#000; }
+  .tab:last-child { border-right:none; }
+  .tab.active { background:#b6ff4e; }
+
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .grid-card { padding:16px; position:relative; }
+  .gc-cat { margin-bottom:6px; }
+  .gc-title { font-size:13px; font-weight:900; line-height:1.35; margin-bottom:6px; }
+  .gc-meta { font-size:9px; opacity:0.4; font-family:monospace; }
+  .gc-new { position:absolute; top:-1px; right:10px; background:#ff6bff; font-size:8px; font-weight:900; padding:2px 6px; border:1.5px solid #000; }
+
+  /* ── OPTION B: Featured + Horizontal Scroll Lane ── */
+  .feat-row { display:grid; grid-template-columns:2fr 1fr; gap:14px; margin-bottom:14px; }
+  .feat-card { padding:24px; }
+  .feat-num { font-size:10px; font-weight:900; opacity:0.3; letter-spacing:3px; margin-bottom:10px; font-family:monospace; }
+  .feat-title { font-size:20px; font-weight:900; line-height:1.2; margin-bottom:8px; }
+  .feat-desc { font-size:12px; opacity:0.6; line-height:1.6; margin-bottom:14px; }
+  .feat-link { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1px; border-bottom:2.5px solid #b6ff4e; padding-bottom:1px; color:#000; }
+  .feat-side { display:flex; flex-direction:column; gap:10px; }
+  .side-card { padding:14px; }
+  .side-title { font-size:12px; font-weight:900; line-height:1.35; margin-bottom:4px; }
+  .side-meta { font-size:9px; opacity:0.4; font-family:monospace; }
+
+  /* Scroll lane */
+  .scroll-label { font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; opacity:0.35; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .scroll-arrow { background:#000; color:#faf6ee; padding:2px 8px; font-size:10px; }
+  .scroll-lane { display:flex; gap:12px; overflow-x:auto; padding-bottom:4px; }
+  .scroll-lane::-webkit-scrollbar { height:3px; }
+  .scroll-lane::-webkit-scrollbar-thumb { background:#000; }
+  .scroll-item { flex:0 0 180px; padding:14px; }
+  .si-cat { margin-bottom:5px; }
+  .si-title { font-size:12px; font-weight:900; line-height:1.35; margin-bottom:4px; }
+  .si-meta { font-size:9px; opacity:0.4; font-family:monospace; }
+
+  /* ── OPTION C: Staggered Masonry ── */
+  .masonry { columns:3; column-gap:12px; }
+  .masonry-card { break-inside:avoid; margin-bottom:12px; padding:16px; }
+  .mc-cat { margin-bottom:6px; }
+  .mc-title { font-size:13px; font-weight:900; line-height:1.35; margin-bottom:5px; }
+  .mc-excerpt { font-size:11px; opacity:0.55; line-height:1.5; margin-bottom:6px; }
+  .mc-meta { font-size:9px; opacity:0.35; font-family:monospace; }
+
+  /* option wrappers */
+  .option-wrap { width:760px; }
+  .option-label { color:#aaa; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; padding-left:4px; }
+
+  /* select button */
+  .select-btn { display:block; width:100%; padding:10px; background:transparent; border:2.5px solid #555; color:#aaa; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-top:10px; transition:all 0.15s; }
+  .select-btn:hover, .select-btn.selected { border-color:#b6ff4e; color:#b6ff4e; background:rgba(182,255,78,0.08); }
+</style>
+</head>
+<body>
+
+<div class="page-label">Insights Section — 3 种方案 · 均已修复卡片透明度问题</div>
+
+<!-- ════ OPTION A ════ -->
+<div class="option-wrap">
+  <div class="option-label">A · Tab 筛选网格 — 博客/碎碎念随时切换，无限扩展</div>
+  <div class="page-wrap">
+    <div class="dot-bg"></div>
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">§ 03</span>
+        <h2 class="section-title" style="border-bottom:4px solid #00d2ff;">文章 & 碎碎念</h2>
+      </div>
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active">全部</div>
+        <div class="tab">博客</div>
+        <div class="tab">碎碎念</div>
+      </div>
+      <!-- Grid -->
+      <div class="grid-3">
+        <div class="card-base card-dark grid-card" style="grid-column:span 2;">
+          <div class="gc-cat"><span class="cat-tag" style="color:#b6ff4e;border-color:#b6ff4e;">精选</span></div>
+          <div class="gc-title" style="font-size:18px;color:#faf6ee;line-height:1.2;margin-bottom:8px;">AI 时代独立开发者的副业脱身路径推演</div>
+          <div style="font-size:11px;opacity:0.5;line-height:1.6;color:#faf6ee;margin-bottom:10px;">模拟分析 2026 年三条脱身路径的真实胜算……</div>
+          <div class="gc-meta" style="color:#faf6ee;">2026-05-25 · 12 min</div>
+        </div>
+        <div class="card-base card-light grid-card" style="position:relative;">
+          <div class="gc-new">NEW</div>
+          <div class="gc-cat"><span class="cat-tag" style="color:#ff6bff;border-color:#ff6bff;">碎碎念</span></div>
+          <div class="gc-title">入职倒计时 30 天，我在想什么</div>
+          <div class="gc-meta">2026-05-28</div>
+        </div>
+        <div class="card-base card-light grid-card">
+          <div class="gc-cat"><span class="cat-tag" style="color:#888;border-color:#888;">技术</span></div>
+          <div class="gc-title">用 Claude Code 做毕业论文格式化</div>
+          <div class="gc-meta">2026-05-20</div>
+        </div>
+        <div class="card-base card-light grid-card">
+          <div class="gc-cat"><span class="cat-tag" style="color:#888;border-color:#888;">产品</span></div>
+          <div class="gc-title">见微 Prowl 上线复盘</div>
+          <div class="gc-meta">2026-05-15</div>
+        </div>
+        <div class="card-base card-light grid-card" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;min-height:80px;opacity:0.4;">
+          <span style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">更多 →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="select-btn" onclick="this.classList.toggle('selected');this.textContent=this.classList.contains('selected')?'✓ 已选 A · Tab 筛选网格':'选择 A · Tab 筛选网格'">选择 A · Tab 筛选网格</button>
+</div>
+
+<!-- ════ OPTION B ════ -->
+<div class="option-wrap">
+  <div class="option-label">B · 精选置顶 + 横向滚动副轨 — 重点突出，扩展靠滚动</div>
+  <div class="page-wrap">
+    <div class="dot-bg"></div>
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">§ 03</span>
+        <h2 class="section-title" style="border-bottom:4px solid #00d2ff;">文章 & 碎碎念</h2>
+      </div>
+      <!-- Featured row -->
+      <div class="feat-row">
+        <div class="card-base card-dark feat-card">
+          <div class="feat-num">FEATURED · 01</div>
+          <div class="feat-title" style="color:#faf6ee;">AI 时代独立开发者的副业脱身路径推演</div>
+          <div class="feat-desc">模拟分析 2026 年副业转正的可行路径——黄金笼子、AI 自媒体、独立产品三条线的真实胜算。</div>
+          <a class="feat-link">阅读全文 →</a>
+        </div>
+        <div class="feat-side">
+          <div class="card-base card-light side-card" style="position:relative;">
+            <div class="gc-new">NEW</div>
+            <div style="margin-bottom:4px;"><span class="cat-tag" style="font-size:8px;color:#ff6bff;border-color:#ff6bff;">碎碎念</span></div>
+            <div class="side-title">入职倒计时 30 天，我在想什么</div>
+            <div class="side-meta">2026-05-28</div>
+          </div>
+          <div class="card-base card-light side-card">
+            <div style="margin-bottom:4px;"><span class="cat-tag" style="font-size:8px;color:#888;border-color:#888;">技术</span></div>
+            <div class="side-title">用 Claude Code 做毕业论文格式化</div>
+            <div class="side-meta">2026-05-20</div>
+          </div>
+        </div>
+      </div>
+      <!-- Scroll lane -->
+      <div class="scroll-label">
+        更多文章
+        <span class="scroll-arrow">← 滑动 →</span>
+      </div>
+      <div class="scroll-lane">
+        <div class="card-base card-light scroll-item">
+          <div class="si-cat"><span class="cat-tag" style="font-size:8px;color:#888;border-color:#888;">产品</span></div>
+          <div class="si-title">见微 Prowl 上线复盘</div>
+          <div class="si-meta">2026-05-15</div>
+        </div>
+        <div class="card-base card-light scroll-item">
+          <div class="si-cat"><span class="cat-tag" style="font-size:8px;color:#888;border-color:#888;">碎碎念</span></div>
+          <div class="si-title">字节实习第一周感受</div>
+          <div class="si-meta">2026-04-10</div>
+        </div>
+        <div class="card-base card-light scroll-item" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;opacity:0.4;">
+          <span style="font-size:11px;font-weight:900;">查看全部 →</span>
+        </div>
+        <div class="card-base card-light scroll-item" style="border-style:dashed;box-shadow:none;opacity:0.2;"></div>
+      </div>
+    </div>
+  </div>
+  <button class="select-btn" onclick="this.classList.toggle('selected');this.textContent=this.classList.contains('selected')?'✓ 已选 B · 精选 + 横向滚动':'选择 B · 精选 + 横向滚动'">选择 B · 精选 + 横向滚动</button>
+</div>
+
+<!-- ════ OPTION C ════ -->
+<div class="option-wrap">
+  <div class="option-label">C · 瀑布流 — 内容越多越好看，自动填满三列</div>
+  <div class="page-wrap">
+    <div class="dot-bg"></div>
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">§ 03</span>
+        <h2 class="section-title" style="border-bottom:4px solid #00d2ff;">文章 & 碎碎念</h2>
+      </div>
+      <div class="masonry">
+        <div class="card-base card-dark masonry-card">
+          <div class="mc-cat"><span class="cat-tag" style="color:#b6ff4e;border-color:#b6ff4e;">精选</span></div>
+          <div class="mc-title" style="color:#faf6ee;font-size:16px;">AI 时代独立开发者的副业脱身路径推演</div>
+          <div class="mc-excerpt" style="color:#faf6ee;">模拟分析 2026 年三条脱身路径的真实胜算，confidence 7/10……</div>
+          <div class="mc-meta" style="color:#faf6ee;">2026-05-25 · 12 min</div>
+        </div>
+        <div class="card-base card-light masonry-card" style="position:relative;">
+          <div class="gc-new">NEW</div>
+          <div class="mc-cat"><span class="cat-tag" style="color:#ff6bff;border-color:#ff6bff;">碎碎念</span></div>
+          <div class="mc-title">入职倒计时 30 天，我在想什么</div>
+          <div class="mc-meta">2026-05-28</div>
+        </div>
+        <div class="card-base card-light masonry-card">
+          <div class="mc-cat"><span class="cat-tag" style="color:#888;border-color:#888;">产品</span></div>
+          <div class="mc-title">见微 Prowl 上线复盘</div>
+          <div class="mc-excerpt">从想法到上线 14 天，遇到了哪些坑……</div>
+          <div class="mc-meta">2026-05-15</div>
+        </div>
+        <div class="card-base card-light masonry-card">
+          <div class="mc-cat"><span class="cat-tag" style="color:#888;border-color:#888;">技术</span></div>
+          <div class="mc-title">用 Claude Code 做毕业论文格式化</div>
+          <div class="mc-meta">2026-05-20</div>
+        </div>
+        <div class="card-base card-light masonry-card">
+          <div class="mc-cat"><span class="cat-tag" style="color:#00d2ff;border-color:#00d2ff;">碎碎念</span></div>
+          <div class="mc-title">字节实习第一周感受</div>
+          <div class="mc-excerpt">比我想象中更累，也比我想象中更有趣。</div>
+          <div class="mc-meta">2026-04-10</div>
+        </div>
+        <div class="card-base card-light masonry-card" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;min-height:80px;opacity:0.4;">
+          <span style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">+ 更多</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="select-btn" onclick="this.classList.toggle('selected');this.textContent=this.classList.contains('selected')?'✓ 已选 C · 瀑布流':'选择 C · 瀑布流'">选择 C · 瀑布流</button>
+</div>
+
+<div style="color:#555;font-size:11px;letter-spacing:1px;text-align:center;padding:4px 0;">
+  三个方案卡片背景均已改为半透明，点阵背景可透出。点按钮选择后告诉我。
+</div>
+
+</body>
+</html>

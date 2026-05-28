@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanli Home — Full Design Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; gap: 16px; font-family: 'Inter', -apple-system, sans-serif; }
+
+  .label { color: #888; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+
+  /* The page wrapper */
+  .page {
+    width: 780px;
+    background: #faf6ee;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0 #000;
+  }
+
+  /* Dot grid overlay */
+  .page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #00000022 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 3px solid #000;
+    position: relative;
+    z-index: 2;
+    background: rgba(250,246,238,0.95);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo { font-size: 15px; font-weight: 900; letter-spacing: -0.5px; color: #000; }
+  .nav-links { display: flex; gap: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+  .nav-links span { color: #000; opacity: 0.5; cursor: pointer; }
+  .nav-links span:hover { opacity: 1; }
+  .nav-dot { width: 8px; height: 8px; background: #b6ff4e; border: 2px solid #000; border-radius: 50%; display: inline-block; margin-left: 8px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 60px 28px 50px;
+    border-bottom: 3px solid #000;
+    position: relative;
+    z-index: 1;
+    min-height: 380px;
+  }
+  /* Blob top-left */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(182,255,78,0.38), transparent 65%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  /* Blob bottom-right */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -40px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(255,107,255,0.30), transparent 65%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-eyebrow { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; color: #000; opacity: 0.45; margin-bottom: 16px; }
+  .hero-title { font-size: 88px; font-weight: 900; line-height: 0.9; color: #000; margin-bottom: 20px; letter-spacing: -3px; }
+  .hero-title .hl-green { background: #b6ff4e; padding: 0 6px; border: 3px solid #000; display: inline; }
+  .hero-title .hl-pink { background: #ff6bff; padding: 0 6px; border: 3px solid #000; display: inline; }
+  .hero-sub { font-size: 16px; color: #000; opacity: 0.55; margin-bottom: 28px; line-height: 1.5; max-width: 480px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: #b6ff4e; color: #000; font-size: 13px; font-weight: 900; padding: 12px 24px; border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+  .btn-secondary { background: transparent; color: #000; font-size: 13px; font-weight: 900; padding: 12px 24px; border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+  .hero-badges { position: absolute; top: 28px; right: 28px; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; z-index: 2; }
+  .badge { font-size: 9px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border: 2px solid #000; box-shadow: 2px 2px 0 #000; }
+
+  /* ── PROJECTS ── */
+  .section { padding: 48px 28px; border-bottom: 3px solid #000; position: relative; z-index: 1; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-size: 11px; font-weight: 900; letter-spacing: 3px; color: #000; opacity: 0.35; text-transform: uppercase; }
+  .section-title { font-size: 28px; font-weight: 900; color: #000; letter-spacing: -0.5px; }
+  .section-title .underline-green { border-bottom: 4px solid #b6ff4e; }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .project-card { border: 2.5px solid #000; padding: 20px; box-shadow: 5px 5px 0 #000; background: #fff; position: relative; }
+  .project-card-num { font-size: 10px; font-weight: 900; letter-spacing: 2px; opacity: 0.3; margin-bottom: 8px; font-family: monospace; }
+  .project-card-name { font-size: 18px; font-weight: 900; color: #000; margin-bottom: 6px; }
+  .project-card-desc { font-size: 12px; color: #000; opacity: 0.55; line-height: 1.5; margin-bottom: 14px; }
+  .project-card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 9px; font-weight: 900; padding: 3px 8px; border: 1.5px solid #000; box-shadow: 1.5px 1.5px 0 #000; text-transform: uppercase; letter-spacing: 1px; }
+  .project-card-link { font-size: 12px; font-weight: 900; color: #000; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #b6ff4e; padding-bottom: 1px; }
+  .project-card-accent { position: absolute; top: -3px; left: -3px; width: 14px; height: 14px; border-right: 0; border-bottom: 0; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .about-text { font-size: 14px; line-height: 1.7; color: #000; opacity: 0.7; }
+  .about-text strong { opacity: 1; color: #000; font-weight: 900; }
+  .about-stack { display: flex; flex-direction: column; gap: 8px; }
+  .stack-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 2px solid #000; box-shadow: 3px 3px 0 #000; background: #fff; }
+  .stack-dot { width: 10px; height: 10px; border: 2px solid #000; flex-shrink: 0; }
+  .stack-label { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+  .stack-val { font-size: 11px; opacity: 0.5; margin-left: auto; }
+
+  /* ── INSIGHTS ── */
+  .insights-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+  .insight-featured { border: 2.5px solid #000; padding: 24px; box-shadow: 5px 5px 0 #000; background: #000; color: #faf6ee; }
+  .insight-featured-tag { font-size: 9px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #b6ff4e; margin-bottom: 10px; }
+  .insight-featured-title { font-size: 22px; font-weight: 900; line-height: 1.2; margin-bottom: 10px; }
+  .insight-featured-desc { font-size: 12px; opacity: 0.6; line-height: 1.6; margin-bottom: 16px; }
+  .insight-featured-meta { font-size: 10px; opacity: 0.4; font-family: monospace; }
+  .insight-list { display: flex; flex-direction: column; gap: 10px; }
+  .insight-card { border: 2px solid #000; padding: 14px; box-shadow: 3px 3px 0 #000; background: #fff; }
+  .insight-card-cat { font-size: 8px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; margin-bottom: 4px; }
+  .insight-card-title { font-size: 13px; font-weight: 900; color: #000; line-height: 1.3; margin-bottom: 4px; }
+  .insight-card-meta { font-size: 9px; opacity: 0.4; font-family: monospace; }
+  .insight-card-new { position: absolute; top: -1px; right: 8px; background: #ff6bff; font-size: 8px; font-weight: 900; padding: 2px 6px; border: 1.5px solid #000; }
+
+  /* ── CONTACT ── */
+  .contact-inner { display: flex; justify-content: space-between; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .contact-title { font-size: 40px; font-weight: 900; color: #000; letter-spacing: -1px; line-height: 1; }
+  .contact-title span { background: #00d2ff; padding: 0 4px; border: 3px solid #000; }
+  .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 16px 28px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; background: #000; color: #faf6ee; }
+</style>
+</head>
+<body>
+
+<div class="label">Full Page Design Preview — Sanli Home</div>
+
+<div class="page">
+
+  <!-- DOT GRID (page-level) -->
+  <div style="position:absolute;inset:0;background-image:radial-gradient(circle,#00000018 1px,transparent 1px);background-size:20px 20px;pointer-events:none;z-index:0;"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">SANLI <span class="nav-dot"></span></div>
+    <div class="nav-links">
+      <span>项目</span>
+      <span>关于</span>
+      <span>文章</span>
+      <span>联系</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badges">
+      <span class="badge" style="background:#b6ff4e;">ByteDance</span>
+      <span class="badge" style="background:#ff6bff;">Indie Hacker</span>
+      <span class="badge" style="background:#00d2ff;">AI Builder</span>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Frontend Engineer · Builder · 2026</div>
+      <h1 class="hero-title">
+        在字节<br/>
+        <span class="hl-green">搬砖</span>，<br/>
+        偷偷<span class="hl-pink">造</span><br/>
+        东西。
+      </h1>
+      <p class="hero-sub">全栈前端，ByteDance 打工人。用 AI 造副业，探索脱身路径。</p>
+      <div class="hero-ctas">
+        <button class="btn-primary">查看项目 →</button>
+        <button class="btn-secondary">关于我</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">§ 01</span>
+      <h2 class="section-title"><span class="underline-green">我做的东西</span></h2>
+    </div>
+    <div class="projects-grid">
+      <!-- Card 1 -->
+      <div class="project-card">
+        <div class="project-card-accent" style="border:3px solid #b6ff4e;"></div>
+        <div class="project-card-num">NO. 01</div>
+        <div class="project-card-name">见微 Prowl</div>
+        <div class="project-card-desc">副业机会雷达，帮你发现 AI 时代真实可行的赚钱方向。</div>
+        <div class="project-card-tags">
+          <span class="tag" style="background:#b6ff4e;">AI</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">副业</span>
+        </div>
+        <a class="project-card-link">访问项目 →</a>
+      </div>
+      <!-- Card 2 -->
+      <div class="project-card">
+        <div class="project-card-accent" style="border:3px solid #00d2ff;"></div>
+        <div class="project-card-num">NO. 02</div>
+        <div class="project-card-name">AI IDS Demo</div>
+        <div class="project-card-desc">基于多源日志的 Web 应用入侵检测系统演示。</div>
+        <div class="project-card-tags">
+          <span class="tag" style="background:#00d2ff;">安全</span>
+          <span class="tag">Python</span>
+          <span class="tag">ML</span>
+        </div>
+        <a class="project-card-link">查看 →</a>
+      </div>
+      <!-- Card placeholder -->
+      <div class="project-card" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;min-height:120px;opacity:0.4;">
+        <span style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">+ 更多项目</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">§ 02</span>
+      <h2 class="section-title"><span style="border-bottom:4px solid #ff6bff;">关于我</span></h2>
+    </div>
+    <div class="about-grid">
+      <p class="about-text">
+        <strong>Sanli</strong>，华中科技大学本科毕业，2026 年 7 月入职 <strong>字节跳动</strong>前端工程师。<br/><br/>
+        白天搬砖，下班造东西。相信 AI 正在重新定义独立开发者的可能性上限。正在用 AI 工具探索副业脱身路径。
+      </p>
+      <div class="about-stack">
+        <div class="stack-row"><div class="stack-dot" style="background:#b6ff4e;"></div><span class="stack-label">前端</span><span class="stack-val">React · Next.js · TS</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#ff6bff;"></div><span class="stack-label">后端</span><span class="stack-val">Python · Node</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#00d2ff;"></div><span class="stack-label">AI</span><span class="stack-val">Claude · LLM Apps</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#000;"></div><span class="stack-label">工作</span><span class="stack-val">ByteDance 2026 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">§ 03</span>
+      <h2 class="section-title"><span style="border-bottom:4px solid #00d2ff;">文章 & 碎碎念</span></h2>
+    </div>
+    <div class="insights-grid">
+      <!-- Featured -->
+      <div class="insight-featured">
+        <div class="insight-featured-tag">精选文章</div>
+        <div class="insight-featured-title">AI 时代独立开发者<br/>的副业脱身路径推演</div>
+        <div class="insight-featured-desc">模拟分析 2026 年副业转正的可行路径。黄金笼子、AI 自媒体、独立产品三条线的真实胜算。</div>
+        <div class="insight-featured-meta">2026-05-25 · 12 min read</div>
+      </div>
+      <!-- List -->
+      <div class="insight-list">
+        <div class="insight-card" style="position:relative;">
+          <div class="insight-card-new">NEW</div>
+          <div class="insight-card-cat">碎碎念</div>
+          <div class="insight-card-title">入职倒计时 30 天，我在想什么</div>
+          <div class="insight-card-meta">2026-05-28</div>
+        </div>
+        <div class="insight-card" style="position:relative;">
+          <div class="insight-card-cat">技术</div>
+          <div class="insight-card-title">用 Claude Code 做毕业论文格式化</div>
+          <div class="insight-card-meta">2026-05-20</div>
+        </div>
+        <div class="insight-card" style="position:relative;">
+          <div class="insight-card-cat">产品</div>
+          <div class="insight-card-title">见微 Prowl 上线复盘</div>
+          <div class="insight-card-meta">2026-05-15</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" style="border-bottom:3px solid #000;">
+    <div class="contact-inner">
+      <h2 class="contact-title">来<span>聊</span><br/>一下？</h2>
+      <div class="contact-links">
+        <button class="btn-primary" style="background:#00d2ff;">发邮件 →</button>
+        <button class="btn-secondary">GitHub</button>
+        <button class="btn-secondary">Twitter / X</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2026 Sanli</span>
+    <span>Built with Next.js · Tailwind · Framer Motion</span>
+  </footer>
+
+</div>
+
+<div style="color:#555;font-size:11px;letter-spacing:1px;text-align:center;padding:8px 0 0;">
+  这是静态设计预览，不是可交互原型。告诉我哪里想改。
+</div>
+
+</body>
+</html>

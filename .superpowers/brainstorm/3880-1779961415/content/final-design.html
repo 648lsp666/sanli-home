@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanli Home — Final Design</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#111; display:flex; flex-direction:column; align-items:center; padding:40px 20px; gap:10px; font-family:'Inter',-apple-system,sans-serif; }
+  .top-label { color:#555; font-size:11px; letter-spacing:3px; text-transform:uppercase; font-weight:700; margin-bottom:6px; }
+
+  /* ── PAGE SHELL ── */
+  .page { width:800px; background:#faf6ee; border:3px solid #000; box-shadow:10px 10px 0 #000; overflow:hidden; position:relative; }
+
+  /* dot grid full-page */
+  .dot-bg { position:absolute; inset:0; background-image:radial-gradient(circle,#00000018 1px,transparent 1px); background-size:20px 20px; pointer-events:none; z-index:0; }
+
+  /* ── NAV ── */
+  nav { position:relative; z-index:10; display:flex; justify-content:space-between; align-items:center; padding:14px 32px; border-bottom:3px solid #000; background:rgba(250,246,238,0.92); backdrop-filter:blur(6px); }
+  .nav-logo { font-size:16px; font-weight:900; letter-spacing:-0.5px; display:flex; align-items:center; gap:8px; }
+  .nav-dot { width:9px; height:9px; background:#b6ff4e; border:2px solid #000; border-radius:50%; }
+  .nav-links { display:flex; gap:22px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#000; opacity:0.45; }
+
+  /* ── HERO ── */
+  .hero { position:relative; z-index:1; padding:64px 32px 56px; border-bottom:3px solid #000; overflow:hidden; min-height:420px; }
+  .blob { position:absolute; border-radius:50%; pointer-events:none; }
+  .blob-tl { top:-80px; left:-80px; width:340px; height:340px; background:radial-gradient(circle,rgba(182,255,78,0.42),transparent 65%); }
+  .blob-br { bottom:-80px; right:-60px; width:300px; height:300px; background:radial-gradient(circle,rgba(255,107,255,0.32),transparent 65%); }
+  .blob-tr { top:20px; right:20px; width:160px; height:160px; background:radial-gradient(circle,rgba(0,210,255,0.22),transparent 65%); }
+
+  .hero-badges { position:absolute; top:32px; right:32px; display:flex; flex-direction:column; gap:8px; align-items:flex-end; z-index:2; }
+  .badge { font-size:9px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:4px 10px; border:2px solid #000; box-shadow:2px 2px 0 #000; }
+
+  .hero-inner { position:relative; z-index:2; }
+  .eyebrow { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:4px; opacity:0.4; margin-bottom:18px; }
+  .hero-title { font-size:96px; font-weight:900; line-height:0.88; letter-spacing:-4px; color:#000; margin-bottom:22px; }
+  .hl { padding:2px 8px; border:3px solid #000; display:inline; line-height:1.1; }
+  .hl-g { background:#b6ff4e; }
+  .hl-p { background:#ff6bff; }
+  .hero-sub { font-size:15px; opacity:0.55; line-height:1.6; max-width:460px; margin-bottom:30px; }
+  .ctas { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; padding:13px 26px; border:2.5px solid #000; cursor:pointer; }
+  .btn-p { background:#b6ff4e; box-shadow:4px 4px 0 #000; }
+  .btn-s { background:transparent; box-shadow:4px 4px 0 #000; }
+
+  /* ── SECTION SHELL ── */
+  .sec { position:relative; z-index:1; padding:50px 32px; border-bottom:3px solid #000; }
+  .sec-header { display:flex; align-items:baseline; gap:14px; margin-bottom:28px; }
+  .sec-num { font-size:11px; font-weight:900; letter-spacing:3px; opacity:0.3; text-transform:uppercase; }
+  .sec-title { font-size:28px; font-weight:900; }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .proj-card { border:2.5px solid #000; padding:22px; box-shadow:5px 5px 0 #000; background:rgba(255,255,255,0.7); backdrop-filter:blur(2px); position:relative; }
+  .proj-accent { position:absolute; top:-3px; left:-3px; width:16px; height:16px; }
+  .proj-num { font-size:10px; font-weight:900; letter-spacing:3px; opacity:0.28; font-family:monospace; margin-bottom:10px; }
+  .proj-name { font-size:18px; font-weight:900; margin-bottom:7px; }
+  .proj-desc { font-size:12px; opacity:0.55; line-height:1.6; margin-bottom:14px; }
+  .proj-tags { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:16px; }
+  .tag { font-size:9px; font-weight:900; padding:3px 8px; border:1.5px solid #000; box-shadow:1.5px 1.5px 0 #000; text-transform:uppercase; letter-spacing:1px; }
+  .proj-link { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1px; border-bottom:2.5px solid #b6ff4e; padding-bottom:1px; }
+  .proj-empty { border:2.5px dashed #000; display:flex; align-items:center; justify-content:center; min-height:130px; opacity:0.3; font-size:11px; font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+
+  /* ── ABOUT ── */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+  .about-text { font-size:14px; line-height:1.75; opacity:0.65; }
+  .about-text strong { opacity:1; font-weight:900; }
+  .stack-list { display:flex; flex-direction:column; gap:8px; }
+  .stack-row { display:flex; align-items:center; gap:12px; padding:11px 14px; border:2px solid #000; box-shadow:3px 3px 0 #000; background:rgba(255,255,255,0.7); }
+  .stack-dot { width:10px; height:10px; border:2px solid #000; flex-shrink:0; }
+  .stack-key { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1px; }
+  .stack-val { font-size:10px; opacity:0.45; margin-left:auto; }
+
+  /* ── INSIGHTS ── */
+  .feat-row { display:grid; grid-template-columns:2fr 1fr; gap:14px; margin-bottom:16px; }
+  .feat-main { border:2.5px solid #000; padding:26px; box-shadow:5px 5px 0 #000; background:rgba(0,0,0,0.88); color:#faf6ee; }
+  .feat-eyebrow { font-size:9px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#b6ff4e; margin-bottom:12px; }
+  .feat-title { font-size:20px; font-weight:900; line-height:1.2; margin-bottom:10px; }
+  .feat-excerpt { font-size:12px; opacity:0.55; line-height:1.65; margin-bottom:16px; }
+  .feat-meta { font-size:10px; opacity:0.35; font-family:monospace; }
+  .feat-link { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1px; border-bottom:2.5px solid #b6ff4e; padding-bottom:1px; color:#faf6ee; }
+  .feat-side { display:flex; flex-direction:column; gap:10px; }
+  .side-card { border:2.5px solid #000; padding:15px; box-shadow:3px 3px 0 #000; background:rgba(255,255,255,0.7); position:relative; }
+  .new-badge { position:absolute; top:-2px; right:8px; background:#ff6bff; font-size:8px; font-weight:900; padding:2px 6px; border:1.5px solid #000; }
+  .cat-tag { font-size:8px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:2px 6px; border:1.5px solid currentColor; display:inline-block; margin-bottom:5px; }
+  .card-title { font-size:12px; font-weight:900; line-height:1.35; margin-bottom:4px; }
+  .card-meta { font-size:9px; opacity:0.35; font-family:monospace; }
+
+  /* scroll lane */
+  .scroll-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .scroll-label { font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; opacity:0.35; }
+  .scroll-hint { background:#000; color:#faf6ee; font-size:9px; font-weight:900; padding:3px 8px; letter-spacing:1px; }
+  .scroll-lane { display:flex; gap:12px; overflow-x:auto; padding-bottom:6px; }
+  .scroll-lane::-webkit-scrollbar { height:3px; }
+  .scroll-lane::-webkit-scrollbar-thumb { background:#000; }
+  .scroll-card { flex:0 0 190px; border:2.5px solid #000; padding:15px; box-shadow:3px 3px 0 #000; background:rgba(255,255,255,0.7); }
+  .scroll-ghost { flex:0 0 190px; border:2.5px dashed #000; display:flex; align-items:center; justify-content:center; opacity:0.3; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:1px; }
+
+  /* ── CONTACT ── */
+  .contact-inner { display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+  .contact-title { font-size:52px; font-weight:900; letter-spacing:-2px; line-height:0.95; }
+  .contact-title .hl-c { background:#00d2ff; padding:0 5px; border:3px solid #000; }
+  .contact-links { display:flex; flex-direction:column; gap:10px; }
+
+  /* ── FOOTER ── */
+  footer { padding:14px 32px; display:flex; justify-content:space-between; align-items:center; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; background:#000; color:#faf6ee; opacity:0.9; position:relative; z-index:1; }
+</style>
+</head>
+<body>
+
+<div class="top-label">Final Design · Sanli Home · Neo Brutalist</div>
+
+<div class="page">
+  <div class="dot-bg"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">SANLI <div class="nav-dot"></div></div>
+    <div class="nav-links">
+      <span>项目</span><span>关于</span><span>文章</span><span>联系</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="blob blob-tl"></div>
+    <div class="blob blob-br"></div>
+    <div class="blob blob-tr"></div>
+    <div class="hero-badges">
+      <span class="badge" style="background:#b6ff4e;">ByteDance ↗</span>
+      <span class="badge" style="background:#ff6bff;">Indie Hacker</span>
+      <span class="badge" style="background:#00d2ff;">AI Builder</span>
+    </div>
+    <div class="hero-inner">
+      <div class="eyebrow">Frontend Engineer · Builder · 2026</div>
+      <h1 class="hero-title">
+        在字节<br/>
+        <span class="hl hl-g">搬砖</span>，<br/>
+        偷偷<span class="hl hl-p">造</span><br/>
+        东西。
+      </h1>
+      <p class="hero-sub">全栈前端，ByteDance 打工人。用 AI 造副业，探索脱身路径。</p>
+      <div class="ctas">
+        <button class="btn btn-p">查看项目 →</button>
+        <button class="btn btn-s">关于我</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="sec">
+    <div class="sec-header">
+      <span class="sec-num">§ 01</span>
+      <h2 class="sec-title" style="border-bottom:4px solid #b6ff4e;">我做的东西</h2>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-accent" style="border:3px solid #b6ff4e; border-right:0; border-bottom:0;"></div>
+        <div class="proj-num">NO. 01</div>
+        <div class="proj-name">见微 Prowl</div>
+        <div class="proj-desc">副业机会雷达，帮你发现 AI 时代真实可行的赚钱方向。已上线。</div>
+        <div class="proj-tags">
+          <span class="tag" style="background:#b6ff4e;">AI</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">副业</span>
+        </div>
+        <a class="proj-link">访问项目 →</a>
+      </div>
+      <div class="proj-card">
+        <div class="proj-accent" style="border:3px solid #00d2ff; border-right:0; border-bottom:0;"></div>
+        <div class="proj-num">NO. 02</div>
+        <div class="proj-name">AI IDS Demo</div>
+        <div class="proj-desc">基于多源日志关联分析的 Web 应用入侵检测系统演示。</div>
+        <div class="proj-tags">
+          <span class="tag" style="background:#00d2ff;">安全</span>
+          <span class="tag">Python</span>
+          <span class="tag">ML</span>
+        </div>
+        <a class="proj-link">查看 →</a>
+      </div>
+      <div class="proj-empty" style="grid-column:span 1;">+ 更多</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec">
+    <div class="sec-header">
+      <span class="sec-num">§ 02</span>
+      <h2 class="sec-title" style="border-bottom:4px solid #ff6bff;">关于我</h2>
+    </div>
+    <div class="about-grid">
+      <p class="about-text">
+        <strong>Sanli</strong>，华中科技大学本科，2026 年 7 月入职<strong>字节跳动</strong>前端工程师。<br/><br/>
+        白天搬砖，下班造东西。相信 AI 正在重新定义独立开发者的可能性上限。<br/><br/>
+        正在用 AI 工具探索副业脱身路径。
+      </p>
+      <div class="stack-list">
+        <div class="stack-row"><div class="stack-dot" style="background:#b6ff4e;"></div><span class="stack-key">前端</span><span class="stack-val">React · Next.js · TS</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#ff6bff;"></div><span class="stack-key">后端</span><span class="stack-val">Python · Node</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#00d2ff;"></div><span class="stack-key">AI</span><span class="stack-val">Claude · LLM Apps</span></div>
+        <div class="stack-row"><div class="stack-dot" style="background:#000;"></div><span class="stack-key">当前</span><span class="stack-val">ByteDance 2026 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="sec">
+    <div class="sec-header">
+      <span class="sec-num">§ 03</span>
+      <h2 class="sec-title" style="border-bottom:4px solid #00d2ff;">文章 & 碎碎念</h2>
+    </div>
+    <!-- Featured + side -->
+    <div class="feat-row">
+      <div class="feat-main">
+        <div class="feat-eyebrow">精选文章</div>
+        <div class="feat-title">AI 时代独立开发者的副业脱身路径推演</div>
+        <div class="feat-excerpt">模拟分析 2026 年副业转正的可行路径——黄金笼子、AI 自媒体、独立产品三条线的真实胜算。confidence 7/10。</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="feat-meta">2026-05-25 · 12 min read</div>
+          <a class="feat-link">阅读全文 →</a>
+        </div>
+      </div>
+      <div class="feat-side">
+        <div class="side-card">
+          <span class="new-badge">NEW</span>
+          <div><span class="cat-tag" style="color:#ff6bff;border-color:#ff6bff;">碎碎念</span></div>
+          <div class="card-title">入职倒计时 30 天，我在想什么</div>
+          <div class="card-meta">2026-05-28</div>
+        </div>
+        <div class="side-card">
+          <div><span class="cat-tag" style="color:#888;border-color:#888;">技术</span></div>
+          <div class="card-title">用 Claude Code 做毕业论文格式化</div>
+          <div class="card-meta">2026-05-20</div>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll lane -->
+    <div class="scroll-header">
+      <span class="scroll-label">更多文章</span>
+      <span class="scroll-hint">← 滑动 →</span>
+    </div>
+    <div class="scroll-lane">
+      <div class="scroll-card">
+        <div><span class="cat-tag" style="color:#888;border-color:#888;">产品</span></div>
+        <div class="card-title">见微 Prowl 上线复盘</div>
+        <div class="card-meta">2026-05-15</div>
+      </div>
+      <div class="scroll-card">
+        <div><span class="cat-tag" style="color:#00d2ff;border-color:#00d2ff;">碎碎念</span></div>
+        <div class="card-title">字节实习第一周感受</div>
+        <div class="card-meta">2026-04-10</div>
+      </div>
+      <div class="scroll-card">
+        <div><span class="cat-tag" style="color:#888;border-color:#888;">技术</span></div>
+        <div class="card-title">从零搭一个 Next.js + MDX 博客</div>
+        <div class="card-meta">2026-04-01</div>
+      </div>
+      <div class="scroll-ghost">查看全部 →</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="sec" style="border-bottom:3px solid #000;">
+    <div class="contact-inner">
+      <h2 class="contact-title">来<span class="hl-c">聊</span><br/>一下？</h2>
+      <div class="contact-links">
+        <button class="btn btn-p" style="background:#00d2ff;box-shadow:4px 4px 0 #000;">发邮件 →</button>
+        <button class="btn btn-s">GitHub</button>
+        <button class="btn btn-s">Twitter / X</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Sanli</span>
+    <span>Next.js · Tailwind · Framer Motion</span>
+  </footer>
+</div>
+
+<div style="color:#444;font-size:11px;letter-spacing:1px;text-align:center;padding:10px 0 0;">
+  最终设计稿。如果没问题，告诉我"确认"，我就写 spec 文档然后开始写实现计划。
+</div>
+
+</body>
+</html>

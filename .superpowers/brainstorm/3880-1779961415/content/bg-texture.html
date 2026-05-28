@@ -1,0 +1,77 @@
+<h2>背景效果选哪种？</h2>
+<p class="subtitle">奶油底 × 荧光配色，三种背景纹理方向</p>
+
+<div class="cards">
+
+  <!-- Option A: Grain Noise -->
+  <div class="card" data-choice="grain" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <!-- Cream base + SVG grain overlay -->
+      <div style="position:absolute;inset:0;background:#f5f0e8;"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+        <filter id="grain-a"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+        <rect width="100%" height="100%" filter="url(#grain-a)"/>
+      </svg>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:28px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+          <span style="background:#00d2ff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">联系</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A · 胶片颗粒</h3>
+      <p>SVG noise 滤镜制造纸质感。低调、有温度，像做旧印刷品。荧光色在这个底上特别跳。</p>
+    </div>
+  </div>
+
+  <!-- Option B: Dot Grid -->
+  <div class="card" data-choice="dot-grid" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <div style="position:absolute;inset:0;background:#faf6ee;background-image:radial-gradient(circle,#00000022 1px,transparent 1px);background-size:18px 18px;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:28px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+          <span style="background:#00d2ff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">联系</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B · 点阵网格</h3>
+      <p>设计师笔记本感。结构感强，和 Brutalist 的硬朗边框非常搭，有种"设计稿"的氛围。</p>
+    </div>
+  </div>
+
+  <!-- Option C: Halftone / Mesh Gradient -->
+  <div class="card" data-choice="mesh-gradient" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <!-- Mesh gradient: cream + subtle neon color blobs -->
+      <div style="position:absolute;inset:0;background:#f5f0e8;"></div>
+      <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(182,255,78,0.25),transparent 70%);border-radius:50%;"></div>
+      <div style="position:absolute;bottom:-30px;right:-20px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,107,255,0.2),transparent 70%);border-radius:50%;"></div>
+      <div style="position:absolute;top:40%;right:10px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,210,255,0.15),transparent 70%);border-radius:50%;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:28px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+          <span style="background:#00d2ff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">联系</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C · 光晕渐变</h3>
+      <p>奶油底上叠荧光色光晕（模糊色团）。柔和但有色彩感，在 Brutalist 硬边框映衬下产生"软硬对比"，现代感最强。</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;font-size:13px;">可以选一个，也可以说"A+B 组合"之类。</p>

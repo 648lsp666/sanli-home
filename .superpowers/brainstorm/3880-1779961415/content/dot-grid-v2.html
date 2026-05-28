@@ -1,0 +1,89 @@
+<h2>点阵网格 · 丰富版</h2>
+<p class="subtitle">在 B 的基础上加料，哪个层次感最对？</p>
+
+<div class="cards">
+
+  <!-- B1: Dot grid + color blobs -->
+  <div class="card" data-choice="dot-blob" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <div style="position:absolute;inset:0;background:#faf6ee;background-image:radial-gradient(circle,#00000028 1px,transparent 1px);background-size:18px 18px;"></div>
+      <!-- Color blobs bleeding through the dots -->
+      <div style="position:absolute;top:-30px;left:-20px;width:180px;height:180px;background:radial-gradient(circle,rgba(182,255,78,0.35),transparent 65%);border-radius:50%;"></div>
+      <div style="position:absolute;bottom:-20px;right:-10px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,107,255,0.28),transparent 65%);border-radius:50%;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:26px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B1 · 点阵 + 荧光光晕</h3>
+      <p>点阵打底，荧光色团从角落渗出。结构感 + 色彩感都有，最均衡。</p>
+    </div>
+  </div>
+
+  <!-- B2: Dot grid + grain + bold stripe -->
+  <div class="card" data-choice="dot-stripe" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <div style="position:absolute;inset:0;background:#faf6ee;background-image:radial-gradient(circle,#00000028 1px,transparent 1px);background-size:18px 18px;"></div>
+      <!-- Horizontal color stripe accent -->
+      <div style="position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#b6ff4e 0%,#ff6bff 50%,#00d2ff 100%);"></div>
+      <!-- Side accent bar -->
+      <div style="position:absolute;top:6px;left:0;bottom:0;width:4px;background:#000;"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" xmlns="http://www.w3.org/2000/svg">
+        <filter id="grain-b2"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+        <rect width="100%" height="100%" filter="url(#grain-b2)"/>
+      </svg>
+      <div style="position:relative;z-index:1;padding-left:12px;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:26px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B2 · 点阵 + 彩虹条 + 颗粒</h3>
+      <p>顶部渐变彩条 + 左侧黑色边栏 + 轻微噪点。像印刷海报裁切边，编辑感强。</p>
+    </div>
+  </div>
+
+  <!-- B3: Large dots + hatching diagonal -->
+  <div class="card" data-choice="dot-hatch" onclick="toggleSelect(this)">
+    <div class="card-image" style="position:relative;overflow:hidden;min-height:200px;padding:20px;border-bottom:3px solid #000;">
+      <!-- Larger dots -->
+      <div style="position:absolute;inset:0;background:#faf6ee;background-image:radial-gradient(circle,#00000020 1.5px,transparent 1.5px);background-size:24px 24px;"></div>
+      <!-- Diagonal hatching in corner (SVG) -->
+      <svg style="position:absolute;bottom:0;right:0;width:110px;height:110px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="1.5"/>
+          </pattern>
+        </defs>
+        <rect width="110" height="110" fill="url(#hatch)"/>
+      </svg>
+      <!-- Small neon accent squares floating -->
+      <div style="position:absolute;top:14px;right:16px;width:22px;height:22px;background:#b6ff4e;border:2px solid #000;transform:rotate(12deg);"></div>
+      <div style="position:absolute;top:36px;right:32px;width:14px;height:14px;background:#ff6bff;border:2px solid #000;transform:rotate(-8deg);"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#000;margin-bottom:8px;">SANLI</div>
+        <div style="font-size:26px;font-weight:900;color:#000;line-height:1.1;margin-bottom:12px;">在字节搬砖，<br/>偷偷造东西。</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:#b6ff4e;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">见微</span>
+          <span style="background:#ff6bff;color:#000;padding:4px 10px;font-size:11px;font-weight:900;border:2px solid #000;box-shadow:3px 3px 0 #000;">AI工具</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B3 · 大点阵 + 斜线 + 浮动色块</h3>
+      <p>大间距点阵 + 右下角斜线纹理 + 漂浮的荧光小方块。层次最丰富，手工拼贴报感，最有个性。</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;font-size:13px;">选你最喜欢的那个，或者说"B1 的光晕 + B3 的浮动色块"这类组合也 OK。</p>
