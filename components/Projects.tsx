@@ -7,61 +7,101 @@ interface Project {
   description: string
   tags: string[]
   url: string
+  accentColor: string
 }
 
 const PROJECTS: Project[] = [
   {
     number: '01',
     name: '见微 Prowl',
-    description: '副业机会雷达，帮你发现 AI 时代真实可行的赚钱方向。',
-    tags: ['Next.js', 'AI', '副业'],
+    description: '副业机会雷达，帮你发现 AI 时代真实可行的赚钱方向。已上线。',
+    tags: ['AI', 'Next.js', '副业'],
     url: 'https://opradar.indevs.in',
+    accentColor: 'var(--color-accent-green)',
+  },
+  {
+    number: '02',
+    name: 'AI IDS Demo',
+    description: '基于多源日志关联分析的 Web 应用入侵检测系统演示。',
+    tags: ['安全', 'Python', 'ML'],
+    url: 'https://github.com',
+    accentColor: 'var(--color-accent-cyan)',
   },
 ]
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-}
-
 export default function Projects() {
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-6 py-32">
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <p className="mb-2 font-mono text-xs tracking-[0.3em] text-accent uppercase">Projects</p>
-        <h2 className="mb-12 text-3xl font-extrabold text-white">我做的东西</h2>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <div
-              key={project.number}
-              className="rounded-xl border border-white/10 bg-white/[0.02] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
-            >
-              <div className="mb-3 font-mono text-xs text-accent">NO. {project.number}</div>
-              <h3 className="mb-2 text-lg font-bold text-white">{project.name}</h3>
-              <p className="mb-4 text-sm leading-relaxed text-muted">{project.description}</p>
-              <div className="mb-6 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-white/10 px-2.5 py-0.5 text-xs text-muted"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-semibold text-accent transition-opacity hover:opacity-70"
-              >
-                访问 →
-              </a>
-            </div>
-          ))}
-        </div>
+    <section id="projects" className="px-8 py-[50px]" style={{ borderBottom: '3px solid var(--color-ink)' }}>
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }} transition={{ duration: 0.5 }}
+        className="mb-7 flex items-baseline gap-4"
+      >
+        <span className="font-mono text-[11px] font-black uppercase tracking-[3px] opacity-30" style={{ color: 'var(--color-ink)' }}>§ 01</span>
+        <h2 className="text-[28px] font-black" style={{ color: 'var(--color-ink)', borderBottom: '4px solid var(--color-accent-green)', paddingBottom: '2px' }}>
+          我做的东西
+        </h2>
       </motion.div>
+
+      {/* Grid */}
+      <div className="grid gap-[14px] md:grid-cols-2">
+        {PROJECTS.map((project, i) => (
+          <motion.div
+            key={project.number}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }}
+            className="relative border-[2.5px] p-[22px] transition-transform duration-200 hover:-translate-y-[3px]"
+            style={{
+              borderColor: 'var(--color-ink)',
+              backgroundColor: 'var(--color-paper)',
+              backdropFilter: 'blur(2px)',
+              boxShadow: '5px 5px 0 var(--color-ink)',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '7px 7px 0 var(--color-ink)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0 var(--color-ink)' }}
+          >
+            {/* Corner accent */}
+            <div
+              className="absolute left-[-3px] top-[-3px] h-4 w-4 border-[3px]"
+              style={{ borderColor: project.accentColor, borderRightColor: 'transparent', borderBottomColor: 'transparent' }}
+            />
+            <div className="mb-2 font-mono text-[10px] font-black tracking-[3px] opacity-30" style={{ color: 'var(--color-ink)' }}>
+              NO. {project.number}
+            </div>
+            <h3 className="mb-2 text-[18px] font-black" style={{ color: 'var(--color-ink)' }}>{project.name}</h3>
+            <p className="mb-4 text-[12px] leading-[1.65] opacity-55" style={{ color: 'var(--color-ink)' }}>{project.description}</p>
+            <div className="mb-4 flex flex-wrap gap-[5px]">
+              {project.tags.map(tag => (
+                <span
+                  key={tag}
+                  className="border-[1.5px] px-2 py-[3px] font-mono text-[9px] font-black uppercase tracking-[1px]"
+                  style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '1.5px 1.5px 0 var(--color-ink)' }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[11px] font-black uppercase tracking-[1px]"
+              style={{ color: 'var(--color-ink)', borderBottom: '2.5px solid var(--color-accent-green)', paddingBottom: '1px' }}
+            >
+              访问项目 →
+            </a>
+          </motion.div>
+        ))}
+
+        {/* Empty slot */}
+        <div
+          className="flex min-h-[130px] items-center justify-center border-[2.5px] font-mono text-[11px] font-black uppercase tracking-[2px] opacity-30"
+          style={{ borderColor: 'var(--color-ink)', borderStyle: 'dashed', color: 'var(--color-ink)' }}
+        >
+          + 更多
+        </div>
+      </div>
     </section>
   )
 }
