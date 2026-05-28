@@ -29,23 +29,23 @@ export default function Contact() {
             className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
             style={{ background: 'var(--color-accent-cyan)', borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
           >
-            发邮件 →
+            Mail →
           </a>
           <a
-            href="https://github.com/648lsp666"
+            href="http://xiaohongshu.com/user/profile/692823cc000000003201cfdd"
+            target="_blank" rel="noopener noreferrer"
+            className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
+            style={{ background: 'var(--color-accent-pink)', borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
+          >
+            小红书 →
+          </a>
+          <a
+            href="https://wpa.qq.com/msgrd?v=3&uin=815530704&site=qq&menu=yes"
             target="_blank" rel="noopener noreferrer"
             className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
             style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
           >
-            GitHub
-          </a>
-          <a
-            href="https://x.com"
-            target="_blank" rel="noopener noreferrer"
-            className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
-            style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
-          >
-            Twitter / X
+            QQ · 815530704
           </a>
         </div>
       </motion.div>
