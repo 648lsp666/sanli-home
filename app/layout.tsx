@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import ThemeProvider from '@/components/ThemeProvider'
+import { LangProvider } from '@/components/LangProvider'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <LangProvider>
           {/* Fixed dot-grid background — sits behind all content */}
           <div
             aria-hidden="true"
@@ -30,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="relative z-10">
             {children}
           </div>
+          </LangProvider>
         </ThemeProvider>
       </body>
     </html>
