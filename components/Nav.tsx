@@ -6,7 +6,7 @@ export default function Nav() {
       className="sticky top-0 z-50 flex items-center justify-between border-b-[3px] px-8 py-[14px]"
       style={{
         borderColor: 'var(--color-ink)',
-        backgroundColor: 'var(--color-bg)',
+        backgroundColor: 'var(--color-nav-bg)',
         backdropFilter: 'blur(6px)',
         WebkitBackdropFilter: 'blur(6px)',
       }}

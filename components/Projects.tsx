@@ -24,7 +24,7 @@ const PROJECTS: Project[] = [
     name: 'AI IDS Demo',
     description: '基于多源日志关联分析的 Web 应用入侵检测系统演示。',
     tags: ['安全', 'Python', 'ML'],
-    url: 'https://github.com',
+    url: '#',
     accentColor: 'var(--color-accent-cyan)',
   },
 ]
@@ -51,15 +51,14 @@ export default function Projects() {
             key={project.number}
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="relative border-[2.5px] p-[22px] transition-transform duration-200 hover:-translate-y-[3px]"
+            whileHover={{ y: -3, boxShadow: '7px 7px 0 var(--color-ink)' }}
+            className="relative border-[2.5px] p-[22px]"
             style={{
               borderColor: 'var(--color-ink)',
               backgroundColor: 'var(--color-paper)',
               backdropFilter: 'blur(2px)',
               boxShadow: '5px 5px 0 var(--color-ink)',
             }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '7px 7px 0 var(--color-ink)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0 var(--color-ink)' }}
           >
             {/* Corner accent */}
             <div
