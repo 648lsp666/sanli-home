@@ -23,11 +23,11 @@ export default function Nav() {
       </div>
 
       {/* Links */}
-      <div className="flex gap-[22px] font-mono text-[11px] font-bold uppercase tracking-[2px] opacity-45">
-        <a href="#projects" className="transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>项目</a>
-        <a href="#about"    className="transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>关于</a>
-        <a href="#insights" className="transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>文章</a>
-        <a href="#contact"  className="transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>联系</a>
+      <div className="flex gap-[22px] font-mono text-[11px] font-bold uppercase tracking-[2px]">
+        <a href="#projects" className="opacity-45 transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>项目</a>
+        <a href="#about"    className="opacity-45 transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>关于</a>
+        <a href="#insights" className="opacity-45 transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>文章</a>
+        <a href="#contact"  className="opacity-45 transition-opacity hover:opacity-100" style={{ color: 'var(--color-ink)' }}>联系</a>
       </div>
     </nav>
   )

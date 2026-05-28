@@ -14,6 +14,9 @@
   --color-accent-cyan:  #00d2ff;
   --color-featured-bg:  rgba(0, 0, 0, 0.88);
   --color-nav-bg:       rgba(250, 246, 238, 0.92);
+  --blob-opacity-green: 0.42;
+  --blob-opacity-pink:  0.32;
+  --blob-opacity-cyan:  0.22;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -26,6 +29,9 @@
   --color-dot:          rgba(250, 246, 238, 0.18);
   --color-featured-bg:  rgba(250, 246, 238, 0.10);
   --color-nav-bg:       rgba(15, 15, 15, 0.92);
+  --blob-opacity-green: 0.28;
+  --blob-opacity-pink:  0.22;
+  --blob-opacity-cyan:  0.18;
   /* accent colors unchanged — they pop on dark too */
 }
 

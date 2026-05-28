@@ -62,6 +62,7 @@ export default function Projects() {
           >
             {/* Corner accent */}
             <div
+              aria-hidden="true"
               className="absolute left-[-3px] top-[-3px] h-4 w-4 border-[3px]"
               style={{ borderColor: project.accentColor, borderRightColor: 'transparent', borderBottomColor: 'transparent' }}
             />
@@ -86,7 +87,7 @@ export default function Projects() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-[11px] font-black uppercase tracking-[1px]"
-              style={{ color: 'var(--color-ink)', borderBottom: '2.5px solid var(--color-accent-green)', paddingBottom: '1px' }}
+              style={{ color: 'var(--color-ink)', borderBottom: `2.5px solid ${project.accentColor}`, paddingBottom: '1px' }}
             >
               访问项目 →
             </a>

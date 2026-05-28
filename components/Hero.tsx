@@ -13,12 +13,21 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden px-8 pb-20 pt-16">
       {/* Neon blobs */}
-      <div aria-hidden="true" className="pointer-events-none absolute -left-20 -top-20 h-[340px] w-[340px] rounded-full"
-        style={{ background: 'radial-gradient(circle, rgba(182,255,78,0.42) 0%, transparent 65%)' }} />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-20 -right-16 h-[300px] w-[300px] rounded-full"
-        style={{ background: 'radial-gradient(circle, rgba(255,107,255,0.32) 0%, transparent 65%)' }} />
-      <div aria-hidden="true" className="pointer-events-none absolute right-5 top-5 h-[160px] w-[160px] rounded-full"
-        style={{ background: 'radial-gradient(circle, rgba(0,210,255,0.22) 0%, transparent 65%)' }} />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-20 -top-20 h-[340px] w-[340px] rounded-full"
+        style={{ background: 'radial-gradient(circle, #b6ff4e 0%, transparent 65%)', opacity: 'var(--blob-opacity-green)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-20 -right-16 h-[300px] w-[300px] rounded-full"
+        style={{ background: 'radial-gradient(circle, #ff6bff 0%, transparent 65%)', opacity: 'var(--blob-opacity-pink)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-5 top-5 h-[160px] w-[160px] rounded-full"
+        style={{ background: 'radial-gradient(circle, #00d2ff 0%, transparent 65%)', opacity: 'var(--blob-opacity-cyan)' }}
+      />
 
       {/* Badge chips — hidden on mobile, absolute top-right on md+ */}
       <div className="absolute right-8 top-8 hidden flex-col items-end gap-2 md:flex">

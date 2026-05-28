@@ -32,7 +32,7 @@ export default function Contact() {
             发邮件 →
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/648lsp666"
             target="_blank" rel="noopener noreferrer"
             className="border-[2.5px] px-6 py-3 font-mono text-[12px] font-black uppercase tracking-[1.5px] transition-transform active:scale-[0.97]"
             style={{ borderColor: 'var(--color-ink)', color: 'var(--color-ink)', boxShadow: '4px 4px 0 var(--color-ink)' }}
