@@ -32,7 +32,12 @@ export function getAllPosts(): Post[] {
     .map(filename => {
       const raw = fs.readFileSync(path.join(POSTS_DIR, filename), 'utf-8')
       const { data } = matter(raw)
-      return { ...data, date: normalizeDate(data.date) } as Post
+      return {
+        ...data,
+        slug: filename.replace('.md', ''),
+        date: normalizeDate(data.date),
+        tags: data.tags ?? [],
+      } as Post
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
@@ -42,8 +47,10 @@ export function getPost(slug: string): Post {
   const raw = fs.readFileSync(filepath, 'utf-8')
   const { data, content } = matter(raw)
   return {
-    ...(data as Post),
+    ...data,
+    slug,
     date: normalizeDate(data.date),
+    tags: data.tags ?? [],
     content: marked(content) as string,
-  }
+  } as Post
 }

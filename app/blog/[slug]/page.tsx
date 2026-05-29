@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Nav from '@/components/Nav'
 import BlogPostHeader from '@/components/BlogPostHeader'
-import { getAllPosts, getPost } from '@/lib/posts'
+import { getAllPosts, getPost, type Post } from '@/lib/posts'
 
 export async function generateStaticParams() {
   return getAllPosts().map(post => ({ slug: post.slug }))
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  let post
+  let post: Post | undefined
   try {
     post = getPost(slug)
   } catch {
